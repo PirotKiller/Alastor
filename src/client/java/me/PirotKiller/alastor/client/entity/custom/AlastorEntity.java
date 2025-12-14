@@ -55,10 +55,10 @@ public class AlastorEntity extends AnimalEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 18)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 44)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 25); // Increased follow range for ranged attacks
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 40); // Increased follow range for ranged attacks
     }
 
     // --- LOGIC: Handle Client Animation Signal ---
@@ -73,6 +73,19 @@ public class AlastorEntity extends AnimalEntity {
     }
 
     private void setupAnimationStates() {
+        // 1. Handle Attack Timer (Client Side)
+        if (this.attackAnimationTimeout > 0) {
+            this.attackAnimationTimeout--;
+        }
+
+        // 2. PRIORITY: If attacking, STOP the idle animation and RETURN.
+        // This ensures they never overlap.
+        if (this.attackAnimationTimeout > 0) {
+            this.idleAnimationState.stop();
+            return;
+        }
+
+        // 3. Normal Idle Logic (Only runs if NOT attacking)
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = 40;
             this.idleAnimationState.start(this.age);
@@ -80,6 +93,7 @@ public class AlastorEntity extends AnimalEntity {
             --this.idleAnimationTimeout;
         }
 
+        // 4. Stop Idle if Walking
         if (this.getVelocity().horizontalLengthSquared() > 0.001d) {
             this.idleAnimationState.stop();
         }
@@ -104,6 +118,18 @@ public class AlastorEntity extends AnimalEntity {
                 }
             }
         }
+    }
+    @Override
+    public boolean tryAttack(Entity target) {
+        boolean success = super.tryAttack(target);
+
+        if (success && target instanceof LivingEntity livingTarget && this.liftAttackCooldown <= 0) {
+            // ... existing launch logic ...
+
+            // Stop the mob from sliding while attacking
+            this.getNavigation().stop();
+        }
+        return success;
     }
 
     // --- CUSTOM GOAL CLASS ---

@@ -90,11 +90,20 @@ public class AlastorModel<T extends AlastorEntity> extends SinglePartEntityModel
 
 
         @Override
-        public void setAngles(AlastorEntity  entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        public void setAngles(AlastorEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
             this.getPart().traverse().forEach(ModelPart::resetTransform);
             this.setHeadAngles(netHeadYaw, headPitch);
+
+            // Update Idle Animation
             this.updateAnimation(entity.idleAnimationState, AlastorAnimations.ideal, ageInTicks, 1f);
-            this.animateMovement(AlastorAnimations.walk, limbSwing, limbSwingAmount, 2f, 2.5f);
+
+            // --- THE FIX ---
+            // Only play the walk animation if the attack is NOT active.
+            if (entity.attackAnimationTimeout <= 0) {
+                this.animateMovement(AlastorAnimations.walk, limbSwing, limbSwingAmount, 2f, 2.5f);
+            }
+
+            // Update Attack Animation
             this.updateAnimation(entity.attackAnimationState, AlastorAnimations.attack1, ageInTicks, 1f);
         }
 
