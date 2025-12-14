@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "alastor",
+  "version": "${version}",
+  "name": "Alastor",
+  "description": "Addes custom mob alastor",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/alastor/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "me.PirotKiller.alastor.client.AlastorDataGenerator"
+    ],
+    "client": [
+      "me.PirotKiller.alastor.client.AlastorClient"
+    ],
+    "main": [
+      "me.PirotKiller.alastor.Alastor"
+    ]
+  },
+  "mixins": [
+    "alastor.mixins.json",
+    {
+      "config": "alastor.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
