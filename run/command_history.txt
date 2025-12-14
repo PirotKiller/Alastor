@@ -1,1 +1,32 @@
 /summon alastor:alastor
+/setworldspawn
+/summon alastor:alastor
+/time set day
+/gamerule doDaylightCycle false
+/summon alastor:alastor
+/effect give @a minecraft:resistance infinite 100
+/summon alastor:alastor
+/effect give @a minecraft:saturation infinite 100 false
+/effect clear @a minecraft:resistance
+/summon alastor:alastor
+/effect give @a minecraft:saturation infinite 200 false
+/effect give @a minecraft:saturation infinite 10 false
+/effect clear
+/effect give @a minecraft:saturation infinite 10 false
+/effect clear
+/effect give @a minecraft:saturation infinite 10 false
+/effect give @a minecraft:saturation infinite 200 false
+/effect give @a minecraft:regeneration infinite 10 false
+/setblock -303 63 -272 lava
+/effect give @a minecraft:saturation infinite 10 false
+/effect clear
+/effect give @a minecraft:saturation infinite 10 false
+/summon alastor:alastor
+/effect give @a minecraft:regeneration infinite 10 false
+/summon alastor:alastor
+/effect give @a minecraft:regeneration infinite 10 false
+/summon alastor:alastor
+/effect give @a minecraft:saturation infinite 10 false
+/summon alastor:alastor
+/enchant @a minecraft:protection 4
+/summon alastor:alastor

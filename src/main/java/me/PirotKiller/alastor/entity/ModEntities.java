@@ -1,7 +1,7 @@
-package me.PirotKiller.alastor.client.entity;
+package me.PirotKiller.alastor.entity;
 
 import me.PirotKiller.alastor.Alastor;
-import me.PirotKiller.alastor.client.entity.custom.AlastorEntity;
+import me.PirotKiller.alastor.entity.custom.AlastorEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
@@ -13,7 +13,6 @@ public class ModEntities {
             Identifier.of(Alastor.MOD_ID, "alastor"),
             EntityType.Builder.create(AlastorEntity::new, SpawnGroup.CREATURE)
                     .dimensions(1f, 2.5f).build());
-
 
     public static void registerModEntities() {
         Alastor.LOGGER.info("Registering Mod Entities for " + Alastor.MOD_ID);

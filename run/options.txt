@@ -15,14 +15,14 @@ prioritizeChunkUpdates:0
 fullscreen:false
 gamma:0.5
 graphicsMode:0
-guiScale:0
+guiScale:2
 maxFps:70
 mipmapLevels:4
 narrator:0
 particles:0
 reducedDebugInfo:false
 renderClouds:"false"
-renderDistance:5
+renderDistance:11
 simulationDistance:8
 screenEffectScale:1.0
 soundDevice:""
